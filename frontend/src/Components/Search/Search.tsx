@@ -13,7 +13,7 @@ const Search: React.FC<Props> = (props: Props): JSX.Element => {
         console.log(e);
     }
     const onClick = (e: SyntheticEvent) => {
-
+        console.log(e);
     };
     return (
         <div>
