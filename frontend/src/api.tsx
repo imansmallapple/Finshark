@@ -21,4 +21,4 @@ export const searchCompanies = async (query: string) => {
             return "An expected error has occured.";
         }
     }
-}
+}  
