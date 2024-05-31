@@ -8,7 +8,7 @@ import ListPortfolio from './Components/Portfolio/ListPortfolio/ListPortfolio';
 
 function App() {
   const [search, setSearch]                   = useState<string>("");
-  const [PortfolioValues, setPortfolioValues] = useState<string[]>([]);
+  const [portfolioValues, setPortfolioValues] = useState<string[]>([]);
   const [searchResult, setSearchResult]       = useState<CompanySearch[]>([]);
   const [serverError, setServerError]         = useState<string>("");
   const handleSearchChange                    = (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,11 +17,20 @@ function App() {
   }
    const onPortfolioCreate = (e:any)=>{
     e.preventDefault();
-    const exists = PortfolioValues.find((value)=>value === e.target[0].value);
+    const exists = portfolioValues.find((value)=>value === e.target[0].value);
     if(exists) return;
-    const updatePortfolio = [...PortfolioValues, e.target[0].value];
+    const updatePortfolio = [...portfolioValues, e.target[0].value];
     setPortfolioValues(updatePortfolio);
    };
+
+    const onPortfolioDelete = (e: any)=>{
+    e.preventDefault();
+    const removed = portfolioValues.filter((value)=>{
+      return value !== e.target[0].value;
+    });
+    setPortfolioValues(removed);
+  }
+
   const onSearchSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     const result = await searchCompanies(search);
@@ -41,7 +50,8 @@ function App() {
     handleSearchChange = {handleSearchChange}
      />
      <ListPortfolio
-     portfolioValues={PortfolioValues}
+     portfolioValues = {portfolioValues}
+     onPortfolioDelete = {onPortfolioDelete}
      />
       <CardList 
       searchResults     = {searchResult}
